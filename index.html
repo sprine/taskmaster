@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taskmaster</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          clifford: '#da373d',
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  #container {
+    width: 950px;
+    margin: 0 auto;
+    border-radius: 5px;
+
+    .header {
+      color: #ccc;
+    }
+    
+    & .history {
+      & .day {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+</style>
+
+  <div id="container"></div>
+
+<script src="d3.v7.min.js"></script>
+<script type="module">
+  import render from './taskmaster.js';
+
+  // setup localstorage DB
+  if (!localStorage.getItem('tasks')) {
+      localStorage.setItem('tasks', JSON.stringify([]));
+  }
+
+  // get behaviours from localstorage
+  // const behaviours = JSON.parse(localStorage.getItem('behaviours'));
+
+  const container = d3.select("#container");
+  const data = [
+    {
+      name: "Coffee",
+      count: 0,
+      dates: [],
+    },
+    {
+      name: "Learn",
+      count: 5,
+      dates: [
+        "2021-01-01",
+        "2021-01-02",
+        "2021-01-03",
+        "2021-01-04",
+        "2021-01-05",
+      ],
+    },
+    {
+      name: "Build",
+      count: 0,
+      dates: [],
+    },
+    {
+      name: "Wordle",
+      count: 0,
+      dates: [],
+    },
+    {
+      name: "Exercise",
+      count: 0,
+      dates: [],
+    },
+    {
+      name: "Meditate",
+      count: 0,
+      dates: [],
+    },
+    {
+      name: "Read",
+      count: 0,
+      dates: [],
+    },
+    {
+      name: "Write",
+      count: 0,
+      dates: [],
+    },
+    {
+      name: "Sleep",
+      count: 0,
+      dates: [],
+    },
+    {
+      name: "No sugar",
+      count: 0,
+      dates: [],
+    },
+    {
+      name: "Reflect",
+      count: 0,
+      dates: [],
+    }
+  ]
+  render(container, data);
+</script>
+</html>
