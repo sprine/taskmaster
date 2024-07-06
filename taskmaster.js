@@ -4,7 +4,7 @@ const render = (container, historyData) => {
   container.selectAll("*").remove();
 
   // 0. HEADER ---------------------------------
-  container.classed("text-xs", true);
+  container.classed("text-xs m-3", true);
 
   container
     .append("h1")
@@ -74,14 +74,28 @@ const render = (container, historyData) => {
     .classed("habit", true)
     .classed("flex gap-1 items-center", true); 
 
-  habitRow
-    .append("h2")
-    .classed("w-48", true)
+
+  const habitTitle = habitRow
+    .append("div")
+    .classed("w-48 flex gap-1 items-center", true)
+  
+  habitTitle
+    .append("span")
+    .classed("mr-0.5 opacity-20 hover:opacity-100 hover:cursor-pointer", true)
+    .html('<i class="fa-solid fa-grip-lines"></i>')
+
+  habitTitle
+    .append("span")
+    .classed("mr-0.5 opacity-20 hover:opacity-100 hover:cursor-pointer", true)
+    .html('<i class="fa-solid fa-xmark"></i>')
+
+  habitTitle.append("h2")
+    .classed("w-full", true)
     .append("input")
     .attr("type", "text")
-    .classed("border-b border-dashed", true)
+    .classed("w-full border-b border-dashed bg-transparent", true)
     .attr("value", (d) => d.name);
-    
+  
   const history = habitRow.append("div").classed("history", true)
     .classed("flex gap-1 items-center justify-around flex-1", true);
 
@@ -96,10 +110,13 @@ const render = (container, historyData) => {
         const currentDay = new Date().getDate();
         return d == currentDay;
       })
-      .classed("hover:bg-gray-200 hover:cursor-pointer", true)
+      .classed("hover:bg-gray-200 transition-all duration-100 hover:cursor-pointer hover:scale-110", true)
       // .text((d) => d)
       .on("click", function (d) {
-        d3.select(this).style("background-color", "orange");
+        // if this is already active, remove it
+        // if not, add it
+        //
+        d3.select(this).node().classList.toggle("bg-orange-400");
         // d.count++;
         // localStorage.setItem("behaviours", JSON.stringify(behaviours));
       });
